@@ -4,6 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	  <PackageId>Prakhar.Calculator</PackageId>
+	  <Authors>Prakhar</Authors>
+	  <Product>Prakhar.Calculator</Product>
+	  <Company>Prakhar Infotech Private Limited</Company>
+	  <Description>Calculator for adding two no</Description>
   </PropertyGroup>
 
 </Project>
