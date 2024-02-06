@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-	  <PackageId>Prakhar.Calculator</PackageId>
+	  <PackageId>Prakhar.Addition</PackageId>
 	  <Authors>Prakhar</Authors>
-	  <Product>Prakhar.Calculator</Product>
+	  <Product>Prakhar.Addition</Product>
 	  <Company>Prakhar Infotech Private Limited</Company>
 	  <Description>Calculator for adding two no</Description>
   </PropertyGroup>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	  <PackageId>Prakhar.Subtraction</PackageId>
+	  <Authors>Prakhar</Authors>
+	  <Product>Prakhar.Subtraction</Product>
+	  <Company>Prakhar Infotech Private Limited</Company>
+	  <Description>Calculator for subtracting two no</Description>
+  </PropertyGroup>
+
+</Project>

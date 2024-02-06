@@ -1,0 +1,11 @@
+C:\Users\admin\Desktop\Testing\Subtraction\bin\Debug\net6.0\Subtraction.deps.json
+C:\Users\admin\Desktop\Testing\Subtraction\bin\Debug\net6.0\Subtraction.dll
+C:\Users\admin\Desktop\Testing\Subtraction\bin\Debug\net6.0\Subtraction.pdb
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.AssemblyInfoInputs.cache
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.AssemblyInfo.cs
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.dll
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\refint\Subtraction.dll
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\Subtraction.pdb
+C:\Users\admin\Desktop\Testing\Subtraction\obj\Debug\net6.0\ref\Subtraction.dll
