@@ -32,4 +32,4 @@ jobs:
       #   run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
         
       - name: 'Push to NuGet'
-        run : dotnet nuget push C:\Users\admin\Desktop\Testing\Testing\bin\Debug\*.nupkg --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
+        run : dotnet nuget push ./bin/debug/*.nupkg --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
