@@ -11,10 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Check Git version
-        run: git --version
-
-
       - name: 'Checkout'
         uses: actions/checkout@v3
 
@@ -22,14 +18,6 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-
-      - name: Check for changes
-        id: check_changes
-        run: |
-          $CHANGED_PROJECTS = git diff --name-only 9649dd1ab9df5565653333bde4124253ad40af1d...e5277989780df641fb67aa7f2c1c4230e0079b0f '*.csproj' | %{ $_.Split('/')[0] } | sort -u
-          echo "::set-output name=changed_projects::$CHANGED_PROJECTS"
-        shell: pwsh
-
 
       - name: 'Restore packages'
         run: dotnet restore
@@ -40,15 +28,28 @@ jobs:
       - name: Test
         run: dotnet test --no-build
 
-      - name: 'Pack project'
+      - name: 'Pack projects'
+        run: dotnet pack --no-build --output nupkg
+
+      - name: 'Check for latest NuGet package versions'
+        id: check_versions
         run: |
-          for project in ${{ steps.check_changes.outputs.changed_projects }}; do
-            dotnet pack --no-build --output nupkg "$project"
+          declare -a packageIds=("Prakhar.Multiplication" "Prakhar.Subtraction" "Prakhar.Addition")
+          for packageId in "${packageIds[@]}"; do
+            VERSION=$(nuget list $packageId -PreRelease -Source https://api.nuget.org/v3/index.json | grep -oP '\d+\.\d+\.\d+')
+            echo "::set-output name=$packageId::$VERSION"
           done
 
-      - name: 'Push to NuGet'
+      - name: 'Compare versions and push to NuGet'
         run: |
-          for package in ./nupkg/*.nupkg; do
-            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          declare -a packageIds=("Prakhar.Multiplication" "Prakhar.Subtraction" "Prakhar.Addition")
+          for packageId in "${packageIds[@]}"; do
+            PACKAGE_VERSION=$(dotnet pack --no-build --output nupkg --include-symbols --version-suffix auto)
+            LATEST_VERSION=${{ steps.check_versions.outputs.$packageId }}
+            
+            if [[ "$PACKAGE_VERSION" != "$LATEST_VERSION" ]]; then
+              dotnet nuget push .\nupkg\$packageId.*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+            else
+              echo "No new version to publish for $packageId."
+            fi
           done
-
