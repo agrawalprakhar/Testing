@@ -19,6 +19,12 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
+      - name: 'Check for changes'
+        id: check_changes
+        run: |
+          CHANGED_PROJECTS=$(git diff --name-only ${{ github.event.before }}...${{ github.sha }} '*.csproj' | cut -d/ -f1 | sort -u)
+          echo "::set-output name=changed_projects::$CHANGED_PROJECTS"
+
       - name: 'Restore packages'
         run: dotnet restore
 
@@ -28,10 +34,15 @@ jobs:
       - name: Test
         run: dotnet test --no-build
 
-
       - name: 'Pack project'
-        run: dotnet pack --no-build --output nupkg
-
+        run: |
+          for project in ${{ steps.check_changes.outputs.changed_projects }}; do
+            dotnet pack --no-build --output nupkg "$project"
+          done
 
       - name: 'Push to NuGet'
-        run: dotnet nuget push .\nupkg\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: |
+          for package in ./nupkg/*.nupkg; do
+            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          done
+
