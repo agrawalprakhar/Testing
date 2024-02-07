@@ -26,10 +26,11 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          CHANGED_PROJECTS=$(git diff --name-only ${{ github.event.before }}...${{ github.sha }} '*.csproj' | cut -d/ -f1 | sort -u)
+          $CHANGED_PROJECTS = git diff --name-only 9649dd1ab9df5565653333bde4124253ad40af1d...e5277989780df641fb67aa7f2c1c4230e0079b0f '*.csproj' | %{ $_.Split('/')[0] } | sort -u
           echo "::set-output name=changed_projects::$CHANGED_PROJECTS"
         shell: pwsh
-        
+
+
       - name: 'Restore packages'
         run: dotnet restore
 
