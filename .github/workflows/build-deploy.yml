@@ -34,6 +34,7 @@ jobs:
       - name: 'Check for latest NuGet package versions'
         id: check_versions
         run: |
+          # Replace 'YourPackageIds' with the actual IDs of your packages
           declare -a packageIds=("Prakhar.Multiplication" "Prakhar.Subtraction" "Prakhar.Addition")
           for packageId in "${packageIds[@]}"; do
             VERSION=$(nuget list $packageId -PreRelease -Source https://api.nuget.org/v3/index.json | grep -oP '\d+\.\d+\.\d+')
@@ -42,13 +43,14 @@ jobs:
 
       - name: 'Compare versions and push to NuGet'
         run: |
+          # Assuming the output names match the package IDs
           declare -a packageIds=("Prakhar.Multiplication" "Prakhar.Subtraction" "Prakhar.Addition")
           for packageId in "${packageIds[@]}"; do
             PACKAGE_VERSION=$(dotnet pack --no-build --output nupkg --include-symbols --version-suffix auto)
-            LATEST_VERSION=${{ steps.check_versions.outputs.$packageId }}
+            LATEST_VERSION=${{ steps.check_versions.outputs[${packageId}] }}
             
             if [[ "$PACKAGE_VERSION" != "$LATEST_VERSION" ]]; then
-              dotnet nuget push .\nupkg\$packageId.*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+              dotnet nuget push .\nupkg\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
             else
               echo "No new version to publish for $packageId."
             fi
