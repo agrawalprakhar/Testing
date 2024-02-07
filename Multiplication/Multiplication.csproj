@@ -11,6 +11,7 @@
 	  <Product>Prakhar.Multiplication</Product>
 	  <Company>Prakhar Infotech Private Limited</Company>
 	  <Description>Calculator for multiplying two no</Description>
+	  <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
