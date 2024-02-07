@@ -19,19 +19,21 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
+       - name: 'Get changed projects'
+        id: get_changed_projects
+        run: |
+          changed_projects=$(git diff --name-only HEAD^ HEAD '*.csproj' | xargs -n1 dirname | sort -u)
+          echo "::set-output name=projects::$changed_projects"
+
       - name: 'Restore packages'
         run: dotnet restore
 
-      - name: 'Build project'
-        run: dotnet build --no-restore --configuration Release
-
-      - name: Test
-        run: dotnet test --no-build
-
-
-      - name: 'Pack project'
-        run: dotnet pack --no-build --output nupkg
-
+      - name: 'Build and Pack project'
+        run: |
+          for project in ${{ steps.get_changed_projects.outputs.projects }}; do
+            dotnet build --no-restore --configuration Release $project
+            dotnet pack --no-build --output nupkg $project
+          done
 
       - name: 'Push to NuGet'
         run: dotnet nuget push .\nupkg\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
