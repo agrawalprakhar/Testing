@@ -1,0 +1,6 @@
+
+# Ignore specific directories in EmailService.Test
+TestingCon/Models/
+TestingCon/Views/
+TestingCon/Properties/
+TestingCon/wwwroot/
