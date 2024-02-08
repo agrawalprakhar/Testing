@@ -1,5 +1,5 @@
 
-# Ignore specific directories in EmailService.Test
+# Ignore specific directories in TestingCon
 TestingCon/Models/
 TestingCon/Views/
 TestingCon/Properties/
